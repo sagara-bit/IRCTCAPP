@@ -1489,3 +1489,45 @@ Caused by: org.hibernate.TransientObjectException: persistent instance reference
 2025-09-20 16:00:50 [http-nio-8080-exec-3] INFO  c.e.i.i.aspect.LoggingAspect - Before method execution: TrainServiceImpl.getAllTrains()
 2025-09-20 16:32:33 [http-nio-8080-exec-7] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('A' (code 65)): was expecting comma to separate Object entries]
 2025-09-20 16:33:07 [http-nio-8080-exec-3] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 1812 ms
+2025-09-20 17:11:11 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-09-20 17:11:11 [main] INFO  c.e.i.i.IrctcBackendApplication - Starting IrctcBackendApplication using Java 24.0.1 with PID 8536 (F:\backendX\irctc-backend\irctc-backend\target\classes started by sagar kumar in F:\backendX\irctc-backend)
+2025-09-20 17:11:11 [main] DEBUG c.e.i.i.IrctcBackendApplication - Running with Spring Boot v3.5.0, Spring v6.2.7
+2025-09-20 17:11:11 [main] INFO  c.e.i.i.IrctcBackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-09-20 17:11:14 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-20 17:11:14 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 164 ms. Found 8 JPA repository interfaces.
+2025-09-20 17:11:16 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-20 17:11:16 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-09-20 17:11:16 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-20 17:11:16 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.41]
+2025-09-20 17:11:16 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-20 17:11:16 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4898 ms
+2025-09-20 17:11:17 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-20 17:11:17 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-09-20 17:11:17 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-20 17:11:18 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-20 17:11:18 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-20 17:11:20 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@d190639
+2025-09-20 17:11:20 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-20 17:11:20 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-20 17:11:20 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-09-20 17:11:20 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-20 17:11:23 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-20 17:11:23 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-20 17:11:25 [main] DEBUG c.e.i.i.c.S.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-09-20 17:11:25 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-20 17:11:27 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailService
+2025-09-20 17:11:27 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-20 17:11:29 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-09-20 17:11:30 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-09-20 17:11:30 [main] INFO  c.e.i.i.IrctcBackendApplication - Started IrctcBackendApplication in 19.725 seconds (process running for 20.881)
+2025-09-20 17:12:14 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-20 17:12:14 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-20 17:12:14 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2025-09-20 17:12:15 [http-nio-8080-exec-1] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 1648 ms
