@@ -3,6 +3,8 @@ package com.example.irctc.irctc_backend.config;
 
 import com.example.irctc.irctc_backend.interceptor.MyCutstomInterceptors;
 import com.example.irctc.irctc_backend.interceptor.TimeLoggerInterceptor;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,8 +31,9 @@ public class ProjectConfig implements WebMvcConfigurer {
 
     }
 
-    @Bean
+@Bean
     public ModelMapper modelMapper(){
         return  new ModelMapper();
     }
+
 }

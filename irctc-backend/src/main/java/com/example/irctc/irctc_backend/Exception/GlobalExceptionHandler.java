@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -31,6 +32,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResouceNotFoundException(ResourceNotFoundException exception){
         ErrorResponse response = new ErrorResponse("Train Not Found" + exception.getMessage(),"404",false);
+        ResponseEntity<ErrorResponse> responseResponseEntity = new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        return  responseResponseEntity;
+    }
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<ErrorResponse> SQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException exception){
+            String message = exception.getMessage().contains("Duplicate entry") ? "Train code is Already availabe Please Try Another" : exception.getMessage();
+        ErrorResponse response = new ErrorResponse(message,"400",false);
         ResponseEntity<ErrorResponse> responseResponseEntity = new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         return  responseResponseEntity;
     }

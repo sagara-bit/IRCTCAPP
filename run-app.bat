@@ -1,0 +1,3 @@
+@echo off
+echo Running Spring Boot in a separate terminal...
+start cmd /k "cd /d F:\backendX\irctc-backend && mvnw spring-boot:run"

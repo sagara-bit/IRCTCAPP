@@ -1,53 +1,36 @@
 package com.example.irctc.irctc_backend.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.*;
 
 @Entity
 @Table(name="trains")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Train {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String trainNo;
     private String name;
+    private Integer totalDistance;
+    @ManyToOne
+    @JoinColumn(name = "source_station_id")
+    private Station sourceStation;
+    @ManyToOne
+    @JoinColumn(name = "destination_station_id")
+    private Station destinationStation;
+    private String routeName;
 
-    private  String routeName;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private TrainImage trainImage;
 
-
-    public Train(String trainNo, String name,String routeName) {
-        this.trainNo = trainNo;
-        this.name = name;
-        this.routeName = routeName;
-    }
-
-    public Train(){
-
-    }
-
-    public String getTrainNo() {
-        return trainNo;
-    }
-
-    public void setTrainNo(String trainNo) {
-        this.trainNo = trainNo;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getRouteName() {
-        return routeName;
-    }
-
-    public void setRouteName(String routeName) {
-        this.routeName = routeName;
-    }
 }
+
+
