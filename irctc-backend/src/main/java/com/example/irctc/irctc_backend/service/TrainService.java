@@ -1,7 +1,10 @@
 package com.example.irctc.irctc_backend.service;
 
+import com.example.irctc.irctc_backend.Dto.AvailabeTrainResponse;
 import com.example.irctc.irctc_backend.Dto.TrainDTO;
+import com.example.irctc.irctc_backend.Dto.UserTrainSearchRequest;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface TrainService {
@@ -19,4 +22,6 @@ public interface TrainService {
 
     //delete Train
     public  void deleteTrain(Long id);
+
+    List<AvailabeTrainResponse> searchTrains(UserTrainSearchRequest trainSearchRequest);
 }

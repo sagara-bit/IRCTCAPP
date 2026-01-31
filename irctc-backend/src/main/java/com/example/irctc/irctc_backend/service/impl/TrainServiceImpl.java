@@ -1,24 +1,38 @@
 package com.example.irctc.irctc_backend.service.impl;
 
+import com.example.irctc.irctc_backend.Dto.AvailabeTrainResponse;
 import com.example.irctc.irctc_backend.Dto.TrainDTO;
-import com.example.irctc.irctc_backend.Entity.Station;
-import com.example.irctc.irctc_backend.Entity.Train;
+import com.example.irctc.irctc_backend.Dto.UserTrainSearchRequest;
+import com.example.irctc.irctc_backend.Entity.*;
 import com.example.irctc.irctc_backend.Exception.ResourceNotFoundException;
 import com.example.irctc.irctc_backend.repositories.StationRepository;
 import com.example.irctc.irctc_backend.repositories.TrainRepository;
+import com.example.irctc.irctc_backend.repositories.TrainScheduleRepository;
 import com.example.irctc.irctc_backend.service.TrainService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Service
-@AllArgsConstructor
 public class TrainServiceImpl implements TrainService {
     private StationRepository stationRepository;
     private ModelMapper modelMapper;
     private TrainRepository trainRepository;
+    private TrainScheduleRepository trainScheduleRepository;
+
+    public TrainServiceImpl(StationRepository stationRepository, ModelMapper modelMapper, TrainRepository trainRepository, TrainScheduleRepository trainScheduleRepository) {
+        this.stationRepository = stationRepository;
+        this.modelMapper = modelMapper;
+        this.trainRepository = trainRepository;
+        this.trainScheduleRepository = trainScheduleRepository;
+    }
+
     @Override
     public TrainDTO createTrain(TrainDTO trainDTO) {
        Long sourceStationId = trainDTO.getSourceStation().getId();
@@ -65,5 +79,35 @@ public class TrainServiceImpl implements TrainService {
     public void deleteTrain(Long id) {
         Train train = trainRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Train Not Found" + id));
         trainRepository.delete(train);
+    }
+
+    //user Train Search this method for user to search for specific date for available seats
+    @Override
+    public List<AvailabeTrainResponse> searchTrains(UserTrainSearchRequest trainSearchRequest) {
+        List<TrainRoute> matchedTrains = this.trainRepository.findTrainBySourceAndDestinationInOrder(trainSearchRequest.getSourceStationId(),trainSearchRequest.getDestinationStationId());
+
+      List<AvailabeTrainResponse> list = matchedTrains.stream().map(trainRoute ->{
+            TrainSchedule trainSchedules = trainScheduleRepository.findByTrainIdAndRunDate(trainRoute.getTrain().getId(),trainSearchRequest.getJourneyDate()).orElse(null);
+            if(trainSchedules==null){
+                return null;
+            }
+            // train is schedude for thr given date
+            Map<CoachType,Integer> seatAvailable = new HashMap<>();
+            Map<CoachType,Double> priceByCoach = new HashMap<>();
+            for(TrainSeat trainSeat :trainSchedules.getTrainSeats()){
+                seatAvailable.merge(trainSeat.getCoachType(),trainSeat.getAvailableSeats(),Integer::sum);
+                priceByCoach.putIfAbsent(trainSeat.getCoachType(),trainSeat.getPrice());
+            }
+            return AvailabeTrainResponse.builder()
+                    .traindId(trainRoute.getTrain().getId())
+                    .trainName(trainRoute.getTrain().getName())
+                    .trainNumber(trainRoute.getTrain().getTrainNo())
+                    .departureTime(trainRoute.getDepartureTime())
+                    .arrivalTime(trainRoute.getArrivalTime())
+                    .seatsAvailable(seatAvailable)
+                    .priceByCoach(priceByCoach)
+                    .build();
+        }).filter(Objects::nonNull).toList();
+        return list;
     }
 }
