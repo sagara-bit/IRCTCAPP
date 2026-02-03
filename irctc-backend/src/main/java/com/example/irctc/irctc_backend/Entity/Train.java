@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="trains")
 @Getter
@@ -30,6 +32,12 @@ public class Train {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private TrainImage trainImage;
+
+    @OneToMany(mappedBy = "train")
+    private List<TrainRoute> routes;
+
+    @OneToMany(mappedBy = "train")
+    private  List<TrainSchedule> schedules;
 
 }
 

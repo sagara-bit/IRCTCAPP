@@ -10,13 +10,15 @@ import java.util.List;
 
 public interface TrainRepository extends JpaRepository<Train,Long> {
     @Query("""
-            select tr
-             from TrainRoute tr
-                where tr.station.id = :sourceStationId or tr.station.id = :destinationStationId
-                group by tr.id
-                having SUM(CASE WHEN tr.station.id = :sourceStationId THEN 1 ELSE 0 END)> 0  
-                        AND SUM(CASE WHEN tr.station.id = :destinationStationId THEN 1 ELSE 0 END)> 0 
-                        AND ( MIN(CASE when tr.station.id=:sourceStationId THEN tr.stationOrder ELSE 9999 END)<  MIN(CASE when tr.station.id=:destinationStationId THEN tr.stationOrder ELSE 9999 END) )
-            """)
-    List<TrainRoute> findTrainBySourceAndDestinationInOrder(@Param("sourceStationId")Long sourceStationId, @Param("destinationStationId") Long destinationStationId);
+    select tr.train
+                   from TrainRoute tr
+                   where tr.station.id in (:sourceStationId, :destinationStationId)
+                     and tr.train.trainNo is not null
+                   group by tr.train
+                   having count(distinct tr.station.id) = 2
+""")
+    List<Train> findTrainBySourceAndDestination(@Param("sourceStationId")Long sourceStationId, @Param("destinationStationId") Long destinationStationId );
+
+    @Query("select tr from TrainRoute tr")
+    List<TrainRoute> findAllRoutes();
 }

@@ -56,9 +56,10 @@ public class AuthController {
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.username());
 
-            String token = this.jwtHelper.generateToken(userDetails);
+            String token = this.jwtHelper.generateAccessToken(userDetails);
+            String refreshToken = this.jwtHelper.generateRefreshToken(userDetails);
             User user = userRepository.findByEmail(loginRequest.username()).get();
-            JwtResponse jwtResponse = new JwtResponse(token, userDetails.getUsername(),modelMapper.map(user,UserDto.class));
+            JwtResponse jwtResponse = new JwtResponse(token,refreshToken,userDetails.getUsername(),modelMapper.map(user,UserDto.class));
             return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
 
         } catch (BadCredentialsException ex) {

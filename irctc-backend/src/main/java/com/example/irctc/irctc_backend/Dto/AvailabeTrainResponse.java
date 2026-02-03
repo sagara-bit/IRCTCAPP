@@ -3,6 +3,7 @@ package com.example.irctc.irctc_backend.Dto;
 import com.example.irctc.irctc_backend.Entity.CoachType;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Map;
@@ -21,4 +22,6 @@ public class AvailabeTrainResponse {
 
     private Map<CoachType,Integer> seatsAvailable;
     private Map<CoachType,Double> priceByCoach;
+    private LocalDate scheduledDate;
+    private Long trainScheduleId;
 }

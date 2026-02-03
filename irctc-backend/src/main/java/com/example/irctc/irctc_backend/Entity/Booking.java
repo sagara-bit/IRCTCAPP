@@ -23,6 +23,7 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    private String pnr;
     @ManyToOne
     @JoinColumn(name ="train_schedule_id")
     private  TrainSchedule trainSchedule;
@@ -37,7 +38,7 @@ public class Booking {
     @Enumerated(EnumType.STRING)
     private  BookingStatus bookingStatus;
     private LocalTime created;
-    @OneToMany(mappedBy = "booking")
+    @OneToMany(mappedBy = "booking",cascade = CascadeType.ALL)
     private List<BookingPassenger> passengers;
     @OneToOne(mappedBy = "booking",cascade = CascadeType.ALL)
     private Payment payment;
